@@ -16,12 +16,10 @@
             --text-dark:    #2c1e15;
             --white:        #ffffff;
             --success:      #25d366;
-            --ana-color:    #e91e63; /* Cor diferenciada para Ana */
-            --lais-color:   #2196f3; /* Cor diferenciada para Lais */
+            --ana-color:    #e91e63;
+            --lais-color:   #2196f3;
         }
-
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
         body {
             background-color: var(--bg-soft);
             background-image: radial-gradient(var(--brown-light) 0.5px, transparent 0.5px);
@@ -34,7 +32,6 @@
             padding: 20px;
             color: var(--text-dark);
         }
-
         .card {
             width: 100%;
             max-width: 480px;
@@ -44,18 +41,15 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             animation: fadeIn 0.8s ease-out;
         }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
         .header {
             padding: 40px 20px 20px;
             text-align: center;
             background: var(--white);
         }
-
         .logo-container {
             width: 110px;
             height: 110px;
@@ -68,14 +62,12 @@
             align-items: center;
             justify-content: center;
         }
-
         .logo-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             border-radius: 50%;
         }
-
         .section-title {
             font-family: 'Playfair Display', serif;
             font-size: 24px;
@@ -83,7 +75,6 @@
             font-weight: 700;
             margin-bottom: 5px;
         }
-
         .section-subtitle {
             font-size: 13px;
             color: var(--brown-light);
@@ -92,18 +83,12 @@
             font-weight: 600;
             margin-bottom: 30px;
         }
-
         .content { padding: 0 40px 40px; }
-
         .form-group { margin-bottom: 15px; }
-
         .form-row {
             display: flex;
             gap: 10px;
-        }
-        .form-row .form-group { flex: 1; }
-        .form-row .group-small { flex: 0 0 80px; }
-
+        }        .form-row .form-group { flex: 1; }        .form-row .group-small { flex: 0 0 100px; }
         label {
             display: block;
             font-size: 10px;
@@ -113,7 +98,6 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
-
         input, select {
             width: 100%;
             background-color: #fafafa;
@@ -125,15 +109,12 @@
             font-family: 'Montserrat', sans-serif;
             transition: all 0.3s ease;
         }
-
         input:focus, select:focus {
             outline: none;
             border-color: var(--brown-light);
             background-color: var(--white);
             box-shadow: 0 0 0 4px rgba(196, 154, 108, 0.1);
         }
-
-        /* Estilo dos Botões de Atendente */
         .btn-whatsapp {
             width: 100%;
             color: white;
@@ -151,14 +132,12 @@
             transition: all 0.3s ease;
             text-decoration: none;
         }
-
         .btn-ana { background-color: #25d366; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2); }
         .btn-lais { background-color: #25d366; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2); }
         .btn-whatsapp:hover {
             transform: translateY(-2px);
             filter: brightness(1.1);
         }
-
         .btn-validar {
             width: 100%;
             background-color: var(--brown-dark);
@@ -171,23 +150,19 @@
             cursor: pointer;
             margin-top: 20px;
         }
-
         .hidden { display: none; }
-
         .atendentes-container {
             margin-top: 20px;
             padding-top: 20px;
             border-top: 2px dashed #eee;
             text-align: center;
         }
-
         .atendentes-container p {
             font-size: 12px;
             font-weight: 700;
             margin-bottom: 10px;
             color: var(--brown-mid);
         }
-
         .footer-tag {
             text-align: center;
             font-family: 'Playfair Display', serif;
@@ -198,7 +173,6 @@
             border-top: 1px solid #eee;
             padding-top: 20px;
         }
-
         @media (max-width: 480px) {
             .content { padding: 0 20px 30px; }
             .card { border-radius: 0; box-shadow: none; }
@@ -242,22 +216,27 @@
                 <input type="text" id="cnpj" placeholder="00.000.000/0000-00" maxlength="18" inputmode="numeric">
             </div>
 
+            <!-- NOVO CAMPO CEP -->
+            <div class="form-group">
+                <label for="cep">CEP</label>
+                <input type="text" id="cep" placeholder="00000-000" maxlength="9" inputmode="numeric" required>
+            </div>
+
             <div class="form-group">
                 <label for="cidade">Cidade</label>
                 <input type="text" id="cidade" placeholder="Sua cidade" required>
             </div>
 
-             <div class="form-group">
-                    <label for="bairro">Bairro</label>
-                    <input type="text" id="bairro" placeholder="Ex: Manaira" required>
-                </div>
-
             <div class="form-group">
-                <label for="rua">Rua / Logradouro</label>
-                <input type="text" id="rua" placeholder="Ex: Av. Principal" required>
+                <label for="bairro">Bairro</label>
+                <input type="text" id="bairro" placeholder="Ex: Manaira" required>
             </div>
 
             <div class="form-row">
+                <div class="form-group">
+                    <label for="rua">Rua / Logradouro</label>
+                    <input type="text" id="rua" placeholder="Ex: Av. Principal" required>
+                </div>
                 <div class="form-group group-small">
                     <label for="numero">Nº</label>
                     <input type="text" id="numero" placeholder="123" required>
@@ -273,11 +252,9 @@
 
             <div id="secaoWhatsApp" class="atendentes-container hidden">
                 <p>Escolha uma atendente para enviar:</p>
-                
                 <button type="button" onclick="enviarPara('Ana')" class="btn-whatsapp btn-ana">
                     Envie seu cadastro para atendente Ana
                 </button>
-
                 <button type="button" onclick="enviarPara('Lais')" class="btn-whatsapp btn-lais">
                     Envie seu cadastro para atendente Lais
                 </button>
@@ -291,17 +268,18 @@
 </div>
 
 <script>
-    
-    const NUMERO_ANA = "5583998884504"; 
-    const NUMERO_LAIS = "5583991394485"; // 
+    const NUMERO_ANA = "5583998884504";
+    const NUMERO_LAIS = "5583991394485";
 
     const tipoDoc = document.getElementById('tipoDoc');
     const groupCpf = document.getElementById('group-cpf');
     const groupCnpj = document.getElementById('group-cnpj');
     const inputCpf = document.getElementById('cpf');
     const inputCnpj = document.getElementById('cnpj');
+    const inputCep = document.getElementById('cep');
     const secaoWhatsApp = document.getElementById('secaoWhatsApp');
     const btnValidar = document.getElementById('btnValidar');
+    const waInput = document.getElementById('whatsapp');
 
     tipoDoc.addEventListener('change', () => {
         if (tipoDoc.value === 'cpf') {
@@ -315,7 +293,6 @@
         }
     });
 
-    
     function validarCPF(cpf) {
         cpf = cpf.replace(/[^\d]+/g,'');
         if(cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
@@ -357,7 +334,14 @@
         return resultado == digitos.charAt(1);
     }
 
-    // Máscaras de input
+    // Máscara CEP
+    inputCep.addEventListener('input', e => {
+        let v = e.target.value.replace(/\D/g, '');
+        v = v.replace(/^(\d{5})(\d)/, '$1-$2');
+        e.target.value = v;
+    });
+
+    // Máscaras de CPF/CNPJ
     inputCpf.addEventListener('input', e => {
         let v = e.target.value.replace(/\D/g, '');
         v = v.replace(/(\d{3})(\d)/, '$1.$2');
@@ -375,7 +359,6 @@
         e.target.value = v;
     });
 
-    const waInput = document.getElementById('whatsapp');
     waInput.addEventListener('input', e => {
         let v = e.target.value.replace(/\D/g, '');
         if (v.length > 11) v = v.slice(0, 11);
@@ -391,14 +374,21 @@
         e.target.value = v;
     });
 
-   
     btnValidar.addEventListener('click', function() {
         const tipo = tipoDoc.value;
         const docValor = tipo === 'cpf' ? inputCpf.value : inputCnpj.value;
         const docRaw = docValor.replace(/\D/g, '');
-
         
-        if(!document.getElementById('nome').value || !document.getElementById('cidade').value || !waInput.value) {
+        const camposObrigatorios = [
+            'nome', 'cep', 'cidade', 'bairro', 'rua', 'numero'
+        ];
+        
+        let formularioValido = true;
+        camposObrigatorios.forEach(id => {
+            if(!document.getElementById(id).value.trim()) formularioValido = false;
+        });
+
+        if(!formularioValido || !waInput.value) {
             alert('Por favor, preencha todos os campos obrigatórios.');
             return;
         }
@@ -409,22 +399,25 @@
             if (!validarCNPJ(docRaw)) { alert('CNPJ inválido!'); return; }
         }
 
+        if (inputCep.value.length < 9) {
+            alert('CEP incompleto!'); return;
+        }
+
         if (waInput.value.replace(/\D/g, '').length < 11) {
             alert('WhatsApp inválido!'); return;
         }
 
-        
         btnValidar.classList.add('hidden');
         secaoWhatsApp.classList.remove('hidden');
     });
 
-    
     function enviarPara(atendente) {
         const tipo = tipoDoc.value;
         const docValor = tipo === 'cpf' ? inputCpf.value : inputCnpj.value;
         
         const dados = {
             nome: document.getElementById('nome').value.trim(),
+            cep: inputCep.value,
             rua: document.getElementById('rua').value.trim(),
             num: document.getElementById('numero').value.trim(),
             bairro: document.getElementById('bairro').value.trim(),
@@ -437,6 +430,7 @@
             `*Vim Finalizar meu Cadastro:*\n` +
             `• *Nome:* ${dados.nome}\n` +
             `• *${tipo.toUpperCase()}:* ${docValor}\n` +
+            `• *CEP:* ${dados.cep}\n` +
             `• *Endereço:* ${dados.rua}, nº ${dados.num}\n` +
             `• *Bairro:* ${dados.bairro}\n` +
             `• *Cidade:* ${dados.cidade}\n` +
@@ -446,6 +440,5 @@
         window.open(`https://wa.me/${numeroDestino}?text=${encodeURIComponent(textoMensagem)}`, '_blank');
     }
 </script>
-
 </body>
 </html>
