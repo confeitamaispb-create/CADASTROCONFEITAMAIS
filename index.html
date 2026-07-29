@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Finalize seu cadastro na Confeita Mais e fale direto com uma de nossas atendentes pelo WhatsApp.">
     <title>Finalizar Cadastro - Confeita Mais</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
@@ -16,6 +17,8 @@
             --text-dark:    #2c1e15;
             --white:        #ffffff;
             --success:      #25d366;
+            --error:        #c0392b;
+            --error-bg:     #fdf1f0;
             --ana-color:    #e91e63;
             --lais-color:   #2196f3;
         }
@@ -44,6 +47,10 @@
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .card { animation: none; }
+            * { transition: none !important; }
         }
         .header {
             padding: 40px 20px 20px;
@@ -77,18 +84,30 @@
         }
         .section-subtitle {
             font-size: 13px;
-            color: var(--brown-light);
+            color: var(--brown-mid);
             text-transform: uppercase;
             letter-spacing: 2px;
             font-weight: 600;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+        }
+        .privacy-note {
+            font-size: 11.5px;
+            line-height: 1.5;
+            color: var(--brown-mid);
+            background-color: var(--bg-soft);
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin: 0 40px 25px;
+            text-align: left;
         }
         .content { padding: 0 40px 40px; }
         .form-group { margin-bottom: 15px; }
         .form-row {
             display: flex;
             gap: 10px;
-        }        .form-row .form-group { flex: 1; }        .form-row .group-small { flex: 0 0 100px; }
+        }
+        .form-row .form-group { flex: 1; }
+        .form-row .group-small { flex: 0 0 100px; }
         label {
             display: block;
             font-size: 10px;
@@ -97,6 +116,10 @@
             margin-bottom: 5px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+        }
+        label .required {
+            color: var(--error);
+            margin-left: 2px;
         }
         input, select {
             width: 100%;
@@ -107,14 +130,35 @@
             color: var(--text-dark);
             font-size: 14px;
             font-family: 'Montserrat', sans-serif;
-            transition: all 0.3s ease;
+            transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
         }
         input:focus, select:focus {
             outline: none;
             border-color: var(--brown-light);
             background-color: var(--white);
-            box-shadow: 0 0 0 4px rgba(196, 154, 108, 0.1);
+            box-shadow: 0 0 0 4px rgba(196, 154, 108, 0.15);
         }
+        input:focus-visible, select:focus-visible, button:focus-visible {
+            outline: 2px solid var(--gold);
+            outline-offset: 2px;
+        }
+        input[disabled] {
+            background-color: #f0eeec;
+            color: #a89b8f;
+            cursor: progress;
+        }
+        input.field-error, select.field-error {
+            border-color: var(--error);
+            background-color: var(--error-bg);
+        }
+        .error-msg {
+            display: none;
+            font-size: 11px;
+            color: var(--error);
+            margin-top: 5px;
+            line-height: 1.4;
+        }
+        .error-msg.visible { display: block; }
         .btn-whatsapp {
             width: 100%;
             color: white;
@@ -129,14 +173,17 @@
             justify-content: center;
             gap: 10px;
             margin-top: 12px;
-            transition: all 0.3s ease;
+            transition: transform 0.2s ease, filter 0.2s ease;
             text-decoration: none;
         }
-        .btn-ana { background-color: #25d366; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2); }
-        .btn-lais { background-color: #25d366; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2); }
+        .btn-ana  { background-color: var(--ana-color);  box-shadow: 0 4px 12px rgba(233, 30, 99, 0.25); }
+        .btn-lais { background-color: var(--lais-color); box-shadow: 0 4px 12px rgba(33, 150, 243, 0.25); }
         .btn-whatsapp:hover {
             transform: translateY(-2px);
-            filter: brightness(1.1);
+            filter: brightness(1.08);
+        }
+        .btn-whatsapp:active {
+            transform: translateY(0);
         }
         .btn-validar {
             width: 100%;
@@ -149,19 +196,29 @@
             font-weight: 700;
             cursor: pointer;
             margin-top: 20px;
+            transition: filter 0.2s ease, transform 0.2s ease;
         }
+        .btn-validar:hover { filter: brightness(1.1); }
+        .btn-validar:active { transform: translateY(1px); }
         .hidden { display: none; }
         .atendentes-container {
             margin-top: 20px;
             padding-top: 20px;
             border-top: 2px dashed #eee;
             text-align: center;
+            animation: fadeIn 0.5s ease-out;
         }
         .atendentes-container p {
             font-size: 12px;
             font-weight: 700;
             margin-bottom: 10px;
             color: var(--brown-mid);
+        }
+        .confirmacao {
+            font-size: 12px;
+            color: var(--brown-mid);
+            margin-top: 14px;
+            line-height: 1.5;
         }
         .footer-tag {
             text-align: center;
@@ -175,6 +232,7 @@
         }
         @media (max-width: 480px) {
             .content { padding: 0 20px 30px; }
+            .privacy-note { margin: 0 20px 25px; }
             .card { border-radius: 0; box-shadow: none; }
             body { padding: 0; background-image: none; background-color: white; }
         }
@@ -188,14 +246,20 @@
             <img src="https://i.ibb.co/Q7YzkJz3/logo-confeita-mais.jpg" alt="Logo Confeita Mais" class="logo-img">
         </div>
         <h1 class="section-title">Bem-vinda(o)</h1>
-        <p class="section-subtitle"> Vamos Finalizar seu Cadastro?</p>
+        <p class="section-subtitle">Vamos finalizar seu cadastro?</p>
     </div>
 
+    <p class="privacy-note">
+        🔒 Seus dados são usados apenas para finalizar seu cadastro na loja e serão enviados diretamente,
+        por você, a uma de nossas atendentes via WhatsApp.
+    </p>
+
     <div class="content">
-        <form id="cadastroForm">
+        <form id="cadastroForm" novalidate>
             <div class="form-group">
-                <label for="nome">Nome Completo</label>
-                <input type="text" id="nome" placeholder="Seu nome e sobrenome" required>
+                <label for="nome">Nome Completo<span class="required">*</span></label>
+                <input type="text" id="nome" placeholder="Seu nome e sobrenome" required aria-required="true">
+                <p class="error-msg" id="err-nome" aria-live="polite">Informe seu nome completo.</p>
             </div>
 
             <div class="form-group">
@@ -207,44 +271,48 @@
             </div>
 
             <div class="form-group" id="group-cpf">
-                <label for="cpf">CPF</label>
-                <input type="text" id="cpf" placeholder="000.000.000-00" maxlength="14" inputmode="numeric">
+                <label for="cpf">CPF<span class="required">*</span></label>
+                <input type="text" id="cpf" placeholder="000.000.000-00" maxlength="14" inputmode="numeric" aria-required="true">
+                <p class="error-msg" id="err-cpf" aria-live="polite">CPF inválido. Confira os números digitados.</p>
             </div>
 
             <div class="form-group hidden" id="group-cnpj">
-                <label for="cnpj">CNPJ</label>
+                <label for="cnpj">CNPJ<span class="required">*</span></label>
                 <input type="text" id="cnpj" placeholder="00.000.000/0000-00" maxlength="18" inputmode="numeric">
+                <p class="error-msg" id="err-cnpj" aria-live="polite">CNPJ inválido. Confira os números digitados.</p>
             </div>
 
             <div class="form-group">
-                <label for="cep">CEP</label>
-                <input type="text" id="cep" placeholder="00000-000" maxlength="9" inputmode="numeric" required>
+                <label for="cep">CEP<span class="required">*</span></label>
+                <input type="text" id="cep" placeholder="00000-000" maxlength="9" inputmode="numeric" required aria-required="true">
+                <p class="error-msg" id="err-cep" aria-live="polite">CEP incompleto ou não encontrado.</p>
             </div>
 
             <div class="form-group">
-                <label for="cidade">Cidade</label>
-                <input type="text" id="cidade" placeholder="Sua cidade" required>
+                <label for="cidade">Cidade<span class="required">*</span></label>
+                <input type="text" id="cidade" placeholder="Sua cidade" required aria-required="true">
             </div>
 
             <div class="form-group">
-                <label for="bairro">Bairro</label>
-                <input type="text" id="bairro" placeholder="Ex: Manaira" required>
+                <label for="bairro">Bairro<span class="required">*</span></label>
+                <input type="text" id="bairro" placeholder="Ex: Manaira" required aria-required="true">
             </div>
 
             <div class="form-row">
                 <div class="form-group">
-                    <label for="rua">Rua / Logradouro</label>
-                    <input type="text" id="rua" placeholder="Ex: Av. Principal" required>
+                    <label for="rua">Rua / Logradouro<span class="required">*</span></label>
+                    <input type="text" id="rua" placeholder="Ex: Av. Principal" required aria-required="true">
                 </div>
                 <div class="form-group group-small">
-                    <label for="numero">Nº</label>
-                    <input type="text" id="numero" placeholder="123" required>
+                    <label for="numero">Nº<span class="required">*</span></label>
+                    <input type="text" id="numero" placeholder="123" required aria-required="true">
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="whatsapp">SEU NÚMERO (com DDD)</label>
-                <input type="text" id="whatsapp" placeholder="(00) 00000-0000" maxlength="15" inputmode="numeric" required>
+                <label for="whatsapp">Seu número (com DDD)<span class="required">*</span></label>
+                <input type="text" id="whatsapp" placeholder="(00) 00000-0000" maxlength="15" inputmode="numeric" required aria-required="true">
+                <p class="error-msg" id="err-whatsapp" aria-live="polite">Informe um número de WhatsApp válido com DDD.</p>
             </div>
 
             <button type="button" id="btnValidar" class="btn-validar">Finalizar Cadastro</button>
@@ -252,11 +320,12 @@
             <div id="secaoWhatsApp" class="atendentes-container hidden">
                 <p>Escolha uma atendente para enviar:</p>
                 <button type="button" onclick="enviarPara('Ana')" class="btn-whatsapp btn-ana">
-                    Envie seu cadastro para atendente Ana
+                    Enviar cadastro para atendente Ana
                 </button>
                 <button type="button" onclick="enviarPara('Lais')" class="btn-whatsapp btn-lais">
-                    Envie seu cadastro para atendente Lais
+                    Enviar cadastro para atendente Lais
                 </button>
+                <p class="confirmacao">Vamos abrir o WhatsApp com seus dados já preenchidos. Confira antes de enviar.</p>
             </div>
         </form>
 
@@ -279,19 +348,45 @@
     const inputRua = document.getElementById('rua');
     const inputBairro = document.getElementById('bairro');
     const inputCidade = document.getElementById('cidade');
+    const inputNumero = document.getElementById('numero');
     const secaoWhatsApp = document.getElementById('secaoWhatsApp');
     const btnValidar = document.getElementById('btnValidar');
     const waInput = document.getElementById('whatsapp');
+    const inputNome = document.getElementById('nome');
+
+    const camposEnderecoAutoPreenchidos = [inputRua, inputBairro, inputCidade];
+
+    function mostrarErro(inputEl, erroId) {
+        inputEl.classList.add('field-error');
+        const erroEl = document.getElementById(erroId);
+        if (erroEl) erroEl.classList.add('visible');
+    }
+
+    function limparErro(inputEl, erroId) {
+        inputEl.classList.remove('field-error');
+        const erroEl = document.getElementById(erroId);
+        if (erroEl) erroEl.classList.remove('visible');
+    }
+
+    // Limpa erro assim que a pessoa começa a corrigir o campo
+    [
+        [inputNome, 'err-nome'], [inputCpf, 'err-cpf'], [inputCnpj, 'err-cnpj'],
+        [inputCep, 'err-cep'], [waInput, 'err-whatsapp']
+    ].forEach(([el, erroId]) => {
+        el.addEventListener('input', () => limparErro(el, erroId));
+    });
 
     tipoDoc.addEventListener('change', () => {
         if (tipoDoc.value === 'cpf') {
             groupCpf.classList.remove('hidden');
             groupCnpj.classList.add('hidden');
             inputCnpj.value = '';
+            limparErro(inputCnpj, 'err-cnpj');
         } else {
             groupCpf.classList.add('hidden');
             groupCnpj.classList.remove('hidden');
             inputCpf.value = '';
+            limparErro(inputCpf, 'err-cpf');
         }
     });
 
@@ -299,9 +394,8 @@
     inputCep.addEventListener('blur', () => {
         let cep = inputCep.value.replace(/\D/g, '');
         if (cep.length === 8) {
-            inputRua.value = "...";
-            inputBairro.value = "...";
-            inputCidade.value = "...";
+            camposEnderecoAutoPreenchidos.forEach(el => { el.value = ''; el.disabled = true; });
+            inputCep.disabled = true;
 
             fetch(`https://viacep.com.br/ws/${cep}/json/`)
                 .then(response => response.json())
@@ -310,20 +404,21 @@
                         inputRua.value = dados.logradouro;
                         inputBairro.value = dados.bairro;
                         inputCidade.value = dados.localidade;
-                        document.getElementById('numero').focus();
+                        limparErro(inputCep, 'err-cep');
+                        inputNumero.focus();
                     } else {
-                        alert("CEP não encontrado.");
-                        inputRua.value = "";
-                        inputBairro.value = "";
-                        inputCidade.value = "";
+                        mostrarErro(inputCep, 'err-cep');
                     }
                 })
                 .catch(() => {
-                    alert("Erro ao buscar CEP.");
-                    inputRua.value = "";
-                    inputBairro.value = "";
-                    inputCidade.value = "";
+                    mostrarErro(inputCep, 'err-cep');
+                })
+                .finally(() => {
+                    camposEnderecoAutoPreenchidos.forEach(el => { el.disabled = false; });
+                    inputCep.disabled = false;
                 });
+        } else if (cep.length > 0) {
+            mostrarErro(inputCep, 'err-cep');
         }
     });
 
@@ -410,56 +505,72 @@
 
     btnValidar.addEventListener('click', function() {
         const tipo = tipoDoc.value;
-        const docValor = tipo === 'cpf' ? inputCpf.value : inputCnpj.value;
-        const docRaw = docValor.replace(/\D/g, '');
-        
-        const camposObrigatorios = [
-            'nome', 'cep', 'cidade', 'bairro', 'rua', 'numero'
-        ];
-        
-        let formularioValido = true;
+        const docInput = tipo === 'cpf' ? inputCpf : inputCnpj;
+        const docErroId = tipo === 'cpf' ? 'err-cpf' : 'err-cnpj';
+        const docRaw = docInput.value.replace(/\D/g, '');
+
+        let primeiroInvalido = null;
+
+        const camposObrigatorios = ['nome', 'cep', 'cidade', 'bairro', 'rua', 'numero'];
         camposObrigatorios.forEach(id => {
-            if(!document.getElementById(id).value.trim()) formularioValido = false;
+            const el = document.getElementById(id);
+            const erroId = 'err-' + id;
+            if (!el.value.trim()) {
+                if (document.getElementById(erroId)) mostrarErro(el, erroId);
+                else el.classList.add('field-error');
+                if (!primeiroInvalido) primeiroInvalido = el;
+            } else {
+                if (document.getElementById(erroId)) limparErro(el, erroId);
+                else el.classList.remove('field-error');
+            }
         });
 
-        if(!formularioValido || !waInput.value) {
-            alert('Por favor, preencha todos os campos obrigatórios.');
-            return;
-        }
-
-        if (tipo === 'cpf') {
-            if (!validarCPF(docRaw)) { alert('CPF inválido!'); return; }
+        const docValido = tipo === 'cpf' ? validarCPF(docRaw) : validarCNPJ(docRaw);
+        if (!docValido) {
+            mostrarErro(docInput, docErroId);
+            if (!primeiroInvalido) primeiroInvalido = docInput;
         } else {
-            if (!validarCNPJ(docRaw)) { alert('CNPJ inválido!'); return; }
+            limparErro(docInput, docErroId);
         }
 
-        if (inputCep.value.length < 9) {
-            alert('CEP incompleto!'); return;
+        if (inputCep.value.replace(/\D/g, '').length !== 8) {
+            mostrarErro(inputCep, 'err-cep');
+            if (!primeiroInvalido) primeiroInvalido = inputCep;
         }
 
         if (waInput.value.replace(/\D/g, '').length < 11) {
-            alert('WhatsApp inválido!'); return;
+            mostrarErro(waInput, 'err-whatsapp');
+            if (!primeiroInvalido) primeiroInvalido = waInput;
+        } else {
+            limparErro(waInput, 'err-whatsapp');
+        }
+
+        if (primeiroInvalido) {
+            primeiroInvalido.focus();
+            primeiroInvalido.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return;
         }
 
         btnValidar.classList.add('hidden');
         secaoWhatsApp.classList.remove('hidden');
+        secaoWhatsApp.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
 
     function enviarPara(atendente) {
         const tipo = tipoDoc.value;
         const docValor = tipo === 'cpf' ? inputCpf.value : inputCnpj.value;
-        
+
         const dados = {
-            nome: document.getElementById('nome').value.trim(),
+            nome: inputNome.value.trim(),
             cep: inputCep.value,
-            rua: document.getElementById('rua').value.trim(),
-            num: document.getElementById('numero').value.trim(),
-            bairro: document.getElementById('bairro').value.trim(),
-            cidade: document.getElementById('cidade').value.trim(),
+            rua: inputRua.value.trim(),
+            num: inputNumero.value.trim(),
+            bairro: inputBairro.value.trim(),
+            cidade: inputCidade.value.trim(),
             wa: waInput.value
         };
 
-        const textoMensagem = 
+        const textoMensagem =
             `Olá, ${atendente}!\n\n` +
             `*Vim Finalizar meu Cadastro:*\n` +
             `• *Nome:* ${dados.nome}\n` +
